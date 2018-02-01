@@ -14,11 +14,14 @@
 Route::get('/login', function () {
     return view('auth.login');
 });
-Route::get('/register', function () {
-    return view('auth.login');
+Route::get('/new-user', function () {
+    return view('users.registerUser');
 });
-Route::get('/', function () {
-    return view('auth.login');
+Route::get('/main', function () {
+    return view('users.main');
+});
+Route::get('/new-post', function () {
+    return view('users.newPost');
 });
 
 
