@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAgainstReferenceTable extends Migration
+class CreateAgainstReference extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,7 @@ class CreateAgainstReferenceTable extends Migration
     {
         Schema::create('againstReference', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('identificationCard');
-            $table->string('patientName');
-            $table->integer('id_user')->unsigned();
+            $table->integer('id_reference')->unsigned();
             $table->string('dentalOrgan');
             $table->string('pulparDiagnosis');
             $table->string('periapicalDiagnosis');
@@ -30,9 +28,8 @@ class CreateAgainstReferenceTable extends Migration
             $table->timestamps();
         });
         Schema::table('againstReference', function($table) {
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_reference')->references('id')->on('reference');
         });
-     
     }
 
     /**

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostTable extends Migration
+class CreateTeeths extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class CreatePostTable extends Migration
      */
     public function up()
     {
-        Schema::create('post', function (Blueprint $table) {
+        Schema::create('teeths', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('details');
-            $table->datetime('date')->useCurrent();
-            $table->integer('id_user')->unsigned();
+            $table->string('teeth');
             $table->timestamps();
-        });
-        Schema::table('post', function($table) {
-            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 
@@ -32,6 +27,6 @@ class CreatePostTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post');
+        Schema::dropIfExists('teeths');
     }
 }

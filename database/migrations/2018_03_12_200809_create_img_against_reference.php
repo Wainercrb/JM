@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMeasurementsTable extends Migration
+class CreateImgAgainstReference extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateMeasurementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('measurements', function (Blueprint $table) {
+        Schema::create('imgAgainstReference', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('conduit');
-            $table->string('measuring');
-            $table->string('reference');
-            $table->string('lima');
+            $table->string('src');
             $table->integer('id_againstReference')->unsigned();
             $table->timestamps();
         });
-        Schema::table('measurements', function($table) {
+        Schema::table('imgAgainstReference', function($table) {
             $table->foreign('id_againstReference')->references('id')->on('againstReference');
         });
     }
@@ -34,6 +31,6 @@ class CreateMeasurementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('measurements');
+        Schema::dropIfExists('imgAgainstReference');
     }
 }
