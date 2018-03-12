@@ -1,15 +1,15 @@
-@extends('users.layouts.app') @section('title') NUEVO USUARIO @endsection
-@section('datails') REGISTRO USUARIO 
-@endsection @section('content')
+@extends('users.layouts.app') 
+@section('title') 
+    NUEVO USUARIO 
+@endsection
+@section('datails') 
+    Registro / Nuevo usuario 
+@endsection 
+@section('action')
+    BUSQUEDA DE USUARIOS
+@endsection
+@section('content')
 {{--  content  --}}
-<div class="col-xl-12 col-sm-12 mb-12 ">
-    <div class="card mb-3">
-        <div class="card-header text-center border-bottom-0 border border-secondary">
-            <i class="fa fa-address-card text-center"></i>
-            INGRESE LOS DATOS DEL MÉDICO
-        </div>
-        <div class="form-control border border-secondary">
-            <br>
             <form class="">
                 <div class="form-row">
                     <div class="form-group form-group col-md-3">
@@ -117,7 +117,4 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
 @endsection

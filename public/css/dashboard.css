@@ -499,3 +499,11 @@ footer.sticky-footer {
   outline: none;
   cursor: inherit;
 }
+
+/* color divs */
+.demo-material-teal  {
+  background-color: #009688;
+}
+
+
+
