@@ -45,19 +45,20 @@
             <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">              
                 <div class="form-group">
                     <label for="identificationCard">Cédula</label>
-                    <input class="form-control" type="text" name="identificationCard" placeholder="Cédula" required/>                        
+                    <input class="form-control" type="text" name="identificationCard" value="{{$reference[0]->identificationCard}}" readonly/>                        
                 </div>                          
             </div>                        
             <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">       
                 <div class="form-group">
                     <label for="patientName">Paciente</label>
-                    <input class="form-control" type="text" name="patientName" placeholder="Paciente" required/>                        
+                    <input class="form-control" type="text" name="patientName" value="{{$reference[0]->patient}}" readonly/>                        
                 </div>                 
             </div>                        
             <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">       
                 <div class="form-group">
                     <label for="id_user">Referidor</label>
-                    <input class="form-control" type="text" name="id_user" placeholder="Referidor"/>                        
+                    <input class="form-control" type="text" value="{{$reference[0]->name}}{{$reference[0]->surnames}}" readonly/>                        
+                    <input class="form-control" type="text" hidden name="id_user" value="{{$reference[0]->id_user}}" placeholder="{{$reference[0]->name}}{{$reference[0]->surnames}}" readonly/>                        
                 </div>                    
             </div>                         
             <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">       

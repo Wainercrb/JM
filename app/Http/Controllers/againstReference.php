@@ -31,7 +31,9 @@ class againstReference extends Controller
      */
     public function create()
     {
-        return view('private.againstReference.create');
+        $reference = \App\Models\reference::join('users','users.id', '=', 'reference.id_user')->where('reference.id','=', 1)->get();
+    //    dd($reference);
+        return View::make('private.againstReference.create')->with('reference', $reference);
     }
 
     /**
@@ -42,9 +44,7 @@ class againstReference extends Controller
     public function store(Request $request)
     {
         $_againsReference = new \App\Models\againsReference;
-        $_againsReference->identificationCard = $request->identificationCard;
-        $_againsReference->patientName = $request->patientName;
-        $_againsReference->id_user = $request->id_user;
+        $_againsReference->id_reference = $request->id_user;
         $_againsReference->dentalOrgan = $request->dentalOrgan;
         $_againsReference->pulparDiagnosis = $request->pulparDiagnosis;
         $_againsReference->periapicalDiagnosis = $request->periapicalDiagnosis;
@@ -54,7 +54,6 @@ class againstReference extends Controller
         $_againsReference->recommendation = $request->recommendation;
         $_againsReference->provisionalMaterial = $request->provisionalMaterial;
         $_againsReference->observations = $request->observations;
-        $_againsReference->state = $request->state;
         $_againsReference->save();
         $lastInsertedId = $_againsReference->id;
         $item = 0;
@@ -88,10 +87,11 @@ class againstReference extends Controller
     public function show($id)
     {
         
-        $_againsReference = \App\Models\againsReference::join('users','users.id', '=', 'againstreference.id_user')->where('againstreference.id', '=',$id)->get();
-        $_measurements = \App\Models\measurements::where('id_againstReference', '=',$id)->get();
+        $againsReference = \App\Models\againsReference::join('reference','reference.id', '=', 'againstreference.id_reference')->join('users','users.id', '=', 'reference.id_user')->where('againstreference.id', '=',$id)->get();
+       
+        $measurements = \App\Models\measurements::where('id_againstReference', '=',$id)->get();
         $_imgAgainstReference = \App\Models\imgAgainstReference::where('id_againstReference', '=',$id)->get();
-        return View::make('private.againstReference.show')->with('againsReference', $_againsReference)->with('measurements', $_measurements)->with('imgAgainstReference', $_imgAgainstReference);
+        return View::make('private.againstReference.show')->with('againsReference', $againsReference)->with('measurements', $measurements)->with('imgAgainstReference', $_imgAgainstReference);
         
        
     }
