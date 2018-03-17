@@ -1,4 +1,4 @@
-@extends('home.layouts.app')
+@extends('public.layouts.app')
 @section('title')
 INICIO
 @endsection

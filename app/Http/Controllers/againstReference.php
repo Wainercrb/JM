@@ -18,12 +18,13 @@ class againstReference extends Controller
      */
     public function Index()
     {
-        $model = \App\Models\againsReference::orderBy('id', 'DESC')->get();
-        return View::make('private.againstReference.index')->with('posts', $model);
-
-       
+        try {
+        $againsReference = \App\Models\againsReference::join('reference','reference.id', '=', 'againstreference.id_reference')->join('users','users.id', '=', 'reference.id_user')->select('users.*', 'reference.*', 'againstreference.*')->get();     
+        return View::make('private.againstReference.index')->with('againsReference', $againsReference);
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            dd($ex->getMessage()); 
+        }
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -32,7 +33,6 @@ class againstReference extends Controller
     public function create()
     {
         $reference = \App\Models\reference::join('users','users.id', '=', 'reference.id_user')->where('reference.id','=', 1)->get();
-    //    dd($reference);
         return View::make('private.againstReference.create')->with('reference', $reference);
     }
 
@@ -41,21 +41,22 @@ class againstReference extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
-    {
-        $_againsReference = new \App\Models\againsReference;
-        $_againsReference->id_reference = $request->id_user;
-        $_againsReference->dentalOrgan = $request->dentalOrgan;
-        $_againsReference->pulparDiagnosis = $request->pulparDiagnosis;
-        $_againsReference->periapicalDiagnosis = $request->periapicalDiagnosis;
-        $_againsReference->forecast = $request->forecast;
-        $_againsReference->startTreatment = $request->startTreatment;
-        $_againsReference->endTreatment = $request->endTreatment;
-        $_againsReference->recommendation = $request->recommendation;
-        $_againsReference->provisionalMaterial = $request->provisionalMaterial;
-        $_againsReference->observations = $request->observations;
-        $_againsReference->save();
-        $lastInsertedId = $_againsReference->id;
+public function store(Request $request){
+try { 
+    $_againsReference = new \App\Models\againsReference;
+    $_againsReference->id_reference = $request->id_user;
+    $_againsReference->dentalOrgan = $request->dentalOrgan;
+    $_againsReference->pulparDiagnosis = $request->pulparDiagnosis;
+    $_againsReference->periapicalDiagnosis = $request->periapicalDiagnosis;
+    $_againsReference->forecast = $request->forecast;
+    $_againsReference->startTreatment = $request->startTreatment;
+    $_againsReference->endTreatment = $request->endTreatment;
+    $_againsReference->recommendation = $request->recommendation;
+    $_againsReference->provisionalMaterial = $request->provisionalMaterial;
+    $_againsReference->observations = $request->observations;
+    $_againsReference->save();
+    $lastInsertedId = $_againsReference->id;
+        if($lastInsertedId > 0){
         $item = 0;
         foreach($request->conduit as $conduit){
             $measurements = new \App\Models\measurements;
@@ -69,14 +70,18 @@ class againstReference extends Controller
         }
         foreach($request->file('file') as $file){
             $_imgAgainstReference = new \App\Models\imgAgainstReference;
-            $_imgAgainstReference->src = Storage::disk('public')->putFile('againstReference',new file($file));
+            $_imgAgainstReference->src = Storage::disk('public')->put('/', $file);
             $_imgAgainstReference->id_againstReference = $lastInsertedId;
-            if($_imgAgainstReference->save()){
-            }else{
-                echo('error');
-            }
+            $_imgAgainstReference->save();
         }
+        return redirect('contra-referencia');
+    }else{
+        return View::make('erros.404');   
     }
+    } catch(\Illuminate\Database\QueryException $ex){ 
+        dd($ex->getMessage()); 
+    }
+}
         
     /**
      * Display the specified resource.
@@ -84,48 +89,137 @@ class againstReference extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($id = null)
     {
-        
-        $againsReference = \App\Models\againsReference::join('reference','reference.id', '=', 'againstreference.id_reference')->join('users','users.id', '=', 'reference.id_user')->where('againstreference.id', '=',$id)->get();
-       
+        if($id !== null){
+            $againsReference = \App\Models\againsReference::join('reference','reference.id', '=', 'againstreference.id_reference')->join('users','users.id', '=', 'reference.id_user')->where('againstreference.id', '=',$id)->get();
+            if($againsReference->count() > 0){
+            $measurements = \App\Models\measurements::where('id_againstReference', '=',$id)->get();
+            $imgAgainstReference = \App\Models\imgAgainstReference::where('id_againstReference', '=',$id)->get();
+            return View::make('private.againstReference.show')->with('againsReference', $againsReference)->with('measurements', $measurements)->with('imgAgainstReference', $imgAgainstReference);
+            }    
+        }
+        return View::make('erros.404');    
+    }
+
+/**
+* Show the form for editing the specified resource.
+* @param  int  $id
+* @return Response the view with the data or errors
+*/
+public function edit($id){
+try {
+    $againsReference = \App\Models\againsReference::join('reference','reference.id', '=', 'againstreference.id_reference')->join('users','users.id', '=', 'reference.id_user')->select('users.*', 'reference.*', 'againstreference.*')->where('againstreference.id','=', $id)->get();  
+        if($againsReference->count() > 0){
+        $imgAgainstReference = \App\Models\imgAgainstReference::where('id_againstReference', '=',$id)->get();
         $measurements = \App\Models\measurements::where('id_againstReference', '=',$id)->get();
-        $_imgAgainstReference = \App\Models\imgAgainstReference::where('id_againstReference', '=',$id)->get();
-        return View::make('private.againstReference.show')->with('againsReference', $againsReference)->with('measurements', $measurements)->with('imgAgainstReference', $_imgAgainstReference);
-        
-       
+        return View::make('private.againstReference.update')->with('againsReference', $againsReference)->with('measurements', $measurements)->with('imgAgainstReference', $imgAgainstReference);
+        }
+        return View::make('erros.404');        
+    } catch(\Illuminate\Database\QueryException $ex){ 
+        dd($ex->getMessage()); 
+    }
+}
+
+/**
+* Update the specified resource in storage.
+*
+* @param  int  $id
+* @return Response
+*/
+public function update(Request $request){
+        if($request->againsReferenceID !== null){
+            $_againsReference = \App\Models\againsReference::find($request->againsReferenceID);
+            $_againsReference->id = $request->againsReferenceID;
+            $_againsReference->id_reference = $request->id_user;
+            $_againsReference->dentalOrgan = $request->dentalOrgan;
+            $_againsReference->pulparDiagnosis = $request->pulparDiagnosis;
+            $_againsReference->periapicalDiagnosis = $request->periapicalDiagnosis;
+            $_againsReference->forecast = $request->forecast;
+            $_againsReference->startTreatment = $request->startTreatment;
+            $_againsReference->endTreatment = $request->endTreatment;
+            $_againsReference->recommendation = $request->recommendation;
+            $_againsReference->provisionalMaterial = $request->provisionalMaterial;
+            $_againsReference->observations = $request->observations;
+            $_againsReference->save();
+            if($request->measurementsID !== null){
+                    foreach($request->measurementsID as $item){
+                        $measurements = \App\Models\measurements::find($item);
+                        $measurements->delete();
+                    }
+            }
+            if($request->conduit !== null){
+                $item = 0;
+                foreach($request->conduit as $conduit){
+                    $measurements = new \App\Models\measurements;
+                    $measurements->conduit = $request->conduit[$item];
+                    $measurements->measuring = $request->measuring[$item];
+                    $measurements->reference = $request->reference[$item];
+                    $measurements->lima = $request->lima[$item];
+                    $measurements->id_againstReference = $request->againsReferenceID;
+                    $measurements->save();
+                    $item++;
+                }
+            } 
+            if($request->imgDeleteID !== null){
+                foreach($request->imgDeleteID as  $item){
+                    $valor = explode(',',$item); 
+                    $_imgAgainstReference = \App\Models\imgAgainstReference::find($valor[0]);
+                    $_imgAgainstReference->id = $valor[0];
+                    if($_imgAgainstReference->delete()){
+                        Storage::delete('public/'.$valor[1]);
+                    }
+                }
+            }
+            if($request->file !== null){
+                foreach($request->file('file') as $file){
+                    $_imgAgainstReference = new \App\Models\imgAgainstReference;
+                    $_imgAgainstReference->src = Storage::disk('public')->put('/', $file);
+                    $_imgAgainstReference->id_againstReference = $request->againsReferenceID;
+                    $_imgAgainstReference->save();
+                }
+            }  
+            return redirect('contra-referencia');
+        }
+        return View::make('erros.404'); 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
-    }
 
+public function delete($id = null){
+    if($id !== null){    
+        $againsReference = \App\Models\againsReference::join('reference','reference.id', '=', 'againstreference.id_reference')->join('users','users.id', '=', 'reference.id_user')->select('users.*', 'reference.*', 'againstreference.*')->where('againstreference.id','=', $id)->get();  
+        if($againsReference->count() > 0){
+            $imgAgainstReference = \App\Models\imgAgainstReference::where('id_againstReference', '=',$id)->get();
+            $measurements = \App\Models\measurements::where('id_againstReference', '=',$id)->get();
+            return View::make('private.againstReference.delete')->with('againsReference', $againsReference)->with('measurements', $measurements)->with('imgAgainstReference', $imgAgainstReference);
+        }
+    } 
+    return View::make('erros.404'); 
+}
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if($request->id !== null){
+        $_imgAgainstReference =  \App\Models\imgAgainstReference::where('id_againstReference', '=',$request->id)->get();
+        foreach($_imgAgainstReference as $item){
+            $_imgAgainstReference = \App\Models\imgAgainstReference::find($item->id);
+            $_imgAgainstReference->delete();
+            Storage::delete('public/'.$item->src);
+        }
+        $measurements = \App\Models\measurements::where('id_againstReference', '=',$request->id)->get();
+        foreach($measurements as $item){
+             $measurements = \App\Models\measurements::find($item->id);
+             $measurements->delete();
+        }
+        $_againsReference = \App\Models\againsReference::find($request->id);
+        $_againsReference->delete();
+        return redirect('contra-referencia');
+        }
     }
 }

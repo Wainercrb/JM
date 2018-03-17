@@ -1,12 +1,12 @@
 @extends('private.layouts.app')
 @section('title')
-    DETALLES
+    ELIMINAR
 @endsection
 @section('datails')
     administrar/contrarreferencia/detalles
 @endsection
 @section('action')
-    DETALLES CONTRARREFERENCIA
+    ELIMINAR CONTRARREFERENCIA
 @endsection
 @section('styles')
     {{--  <link href="components/inputFile/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
@@ -21,13 +21,16 @@
 @endsection
 @section('content')
 <div class="container-fluid">
+    <form method="POST" action="{{ asset(''.'contra-referencia/confirmar-eliminar')}}">
         <div class="row">
+                {{ csrf_field() }}
            <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-12">
               <h1 class="text-center">DR. Jose Mora</h1>
               <h5 class="text-center">Contra Referencia</h5>
            </div>
            <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-12">
               <hr>
+              <input type="text" hidden name="id" value="{{$againsReference[0]->id}}">
            </div>
            <div class="col-12 col-ms-6 col-md-6 col-lg-6 col-xl-6">
               <span id="sp"><strong>Cédula: </strong>{{$againsReference[0]->identificationCard}}</span>
@@ -112,8 +115,12 @@
                  </div>
               </div>
            </div>
+           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right"> 
+                <button class="btn" type="submit" onsubmit="validateForm()">Eliminar</button> 
+            </div>
         </div>
-     </div>
+    </form>
+</div>
      <div id="modal-preview" class="modal" role="dialog"  ondblclick="closeModal()">
         <div class="modal-dialog modal-lg">
            <div class="modal-content">

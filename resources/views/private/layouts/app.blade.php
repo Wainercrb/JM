@@ -52,7 +52,7 @@
                             <a href="login.html">Usuarios</a>
                         </li>
                         <li>
-                            <a href="register.html">Bitacoras</a>
+                            <a href="{{asset('contra-referencia')}}">Contrareferencia</a>
                         </li>
                         <li>
                             <a href="forgot-password.html">Post</a>
@@ -136,13 +136,13 @@
     </nav>
     <div class="content-wrapper">
         <div class="container-fluid">
-            <!-- Breadcrumbs-->
+            {{--  <!-- Breadcrumbs-->
             <ol class="breadcrumb rounded-0">
                 <li class="breadcrumb-item">
                     <a href="#">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">@yield('datails')</li>
-            </ol>
+            </ol>  --}}
     <div class="row">
         <div class = "col-xl-12 col-sm-12 mb-12 " > 
     <div class="card mb-3">
@@ -187,10 +187,10 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="components/bootstrap/js/bootstrap.min.js"></script>
-    <script src="components/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="components/jquery-easing/jquery.easing.min.js"></script>
-    <script src="js/sb-admin.min.js"></script>
+    <script src="{{asset('components/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('components/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('components/jquery-easing/jquery.easing.min.js')}}"></script>
+    <script src="{{asset('js/sb-admin.min.js')}}"></script>
     @yield('javascript')
     </body>                
 </html>

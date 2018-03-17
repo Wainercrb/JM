@@ -11,8 +11,15 @@
 |
 */
 
+Route::get('/', function () {
+    return view('public.index');
+});
+
 Route::get('/login', function () {
      return view('private.againstReference.index');
+ });
+Route::get('/login', function () {
+     return view('auth.login');
  });
 Route::get('/login2', function () {
      return view('private.againstReference.show');
@@ -49,11 +56,18 @@ Route::get('/new-user2', function () {
 // Route::post('/againstReference', function (Request $request) {
    
 // });
-Route::get('/contra-referencia/create', 'againstReference@create');
-Route::get('/contra-referencia/ver/{id}', 'againstReference@show');
+
+// post-routes
+Route::get('/post/nuevo', 'post@create');
+
+// agasint-reference-routes
 Route::post('/contra-referencia/guardar', 'againstReference@store');
-Route::post('/againstReference/actualizar{id}', 'againstReference@update');
-Route::post('/againstReference/eliminar{id}', 'againstReference@delete');
+Route::post('/contra-referencia/editar', 'againstReference@update');
+Route::post('/contra-referencia/confirmar-eliminar', 'againstReference@destroy');
+Route::get('/contra-referencia/nueva', 'againstReference@create');
+Route::get('/contra-referencia/ver/{id}', 'againstReference@show');
+Route::get('/contra-referencia/eliminar/{id}', 'againstReference@delete');
+Route::get('/contra-referencia/editar/{id}', 'againstReference@edit');
 Route::get('contra-referencia', 'againstReference@index');
 
 
