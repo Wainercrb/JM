@@ -25,7 +25,7 @@ Route::get('/login2', function () {
      return view('private.againstReference.show');
  });
 Route::get('/new-user', function () {
-     return view('public.posts');
+     return view('private.registerUser');
  });
 Route::get('/new-user2', function () {
      return view('private.againstReference.create');
@@ -72,3 +72,7 @@ Route::get('contra-referencia', 'againstReference@index');
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
