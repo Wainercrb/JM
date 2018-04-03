@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\User;
 use App\Http\Controllers\Controller;
@@ -34,10 +35,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -47,13 +45,26 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'surnames' => 'required|string|max:255',
-            'code' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        
+        $rules = [
+            'avatar' => 'required',
+            'name' => 'required',
+            'surnames' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+        ];
+        $message = [
+            
+            'avatar.required' => 'Avatar requido',
+            'name.required' => 'Nombre requerido',
+            'surnames.required' => 'Apellidos requeridos',
+            'email.required' => 'Email requerido',
+            'password.required' => 'Contraseña requerida'
+        ];
+        return  $validator = Validator::make($data, $rules, $message);
+           
+
+            
     }
 
     /**
@@ -63,8 +74,11 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {   
+      
+        $src = Storage::disk('public')->put('/', $data['avatar']);
         return User::create([
+            'image' => $src,
             'name' => $data['name'],
             'surnames' => $data['surnames'],
             'code' => $data['code'],

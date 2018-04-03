@@ -1,4 +1,4 @@
-@extends('layouts.private')
+@extends('private.layouts.app')
 @section('title')
     DETALLES
 @endsection

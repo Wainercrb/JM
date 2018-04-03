@@ -1,9 +1,12 @@
-@extends('layouts.private')
+@extends('private.layouts.app')
 @section('title')
     NUEVO POST
 @endsection
 @section('datails')
-    BITACORA
+    Contrareferenica/editar
+@endsection
+@section('action')
+    EDITAR CONTRARREFERENICA
 @endsection
 @section('styles')
     {{--  <link href="components/inputFile/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
@@ -16,35 +19,10 @@
     <script src="components/inputFile/themes/explorer-fa/theme.js" type="text/javascript"></script>
     <script src="components/inputFile/themes/fa/theme.js" type="text/javascript"></script>
     <script src="js/new-post.js"></script>  --}}
-    <script src="{{asset('components/jquery.validate.min.js')}}"></script>
-    <script>
-     $(document).ready(function() {
-    $("#new").on("change", "input, select", function(){    
-        alert("se ejecuto");
-        var $selects = $(this).closest('tr').find('td select'),
-            $cells = $(this).closest("tr").find("td input");
-        $cells.removeClass("has-error");
-        $selects.removeClass("has-error");
-        $cells.each(function() {
-            if ($(this).val().trim() === '') {
-                $(this).addClass("has-error");
-            }
-        });
-        $selects.each(function() {
-            console.log($(this).val() == 'NA');
-            if ($(this).val() == 'NA') {
-                $(this).addClass("has-error");
-            }
-        });
-    });
-});
-
-
-    </script>
 @endsection
 @section('content')
 <div class="container-fluid">    
-    <form action="{{ asset('contra-referencia\guardar') }}" method="POST" enctype="multipart/form-data"> 
+    <form action="{{ asset('contra-referencia\editar') }}" method="POST" enctype="multipart/form-data"> 
         {{ csrf_field()}}                   
         <div class="row">                        
             <div class="col text-center">
@@ -52,61 +30,62 @@
                 <h2>CONTRAREFERENCIA</h2>                
             </div>                        
         </div>
-        @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+         @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row row-files">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 sub-title-section">  
-                    <h2 class="text-center">Información personal del paciente</h2>                  
+                    <h2 class="text-center">Información personal del paciente</h2>   
+                    <input class="form-control" type="text"  hidden name="againsReferenceID" value="{{$againsReference[0]->id}}" readonly/>                        
                 </div> 
-                </div>
+        </div>
         <div class="row">
             <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">              
                 <div class="form-group">
                     <label for="identificationCard">Cédula</label>
-                    <input class="form-control" type="text" name="identificationCard" value="{{$reference[0]->identificationCard}}" readonly/>                        
+                    <input class="form-control" type="text" name="identificationCard" value="{{$againsReference[0]->identificationCard}}" readonly/>                        
                 </div>                          
             </div>                        
             <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">       
                 <div class="form-group">
                     <label for="patientName">Paciente</label>
-                    <input class="form-control" type="text" name="patientName" value="{{$reference[0]->patient}}" readonly/>                        
+                    <input class="form-control" type="text" name="patientName" value="{{$againsReference[0]->patient}}" readonly/>                        
                 </div>                 
             </div>                        
             <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">       
                 <div class="form-group">
                     <label for="id_user">Referidor</label>
-                    <input class="form-control" type="text" value="{{$reference[0]->name}}{{$reference[0]->surnames}}" readonly/>                        
-                    <input class="form-control" type="text" hidden name="id_user" value="{{$reference[0]->id_user}}" placeholder="{{$reference[0]->name}}{{$reference[0]->surnames}}" readonly/>                        
+                    <input class="form-control" type="text" value="{{$againsReference[0]->name}}{{$againsReference[0]->surnames}}" readonly/>                        
+                    <input class="form-control" type="text" hidden name="id_user" value="{{$againsReference[0]->id_user}}" placeholder="{{$againsReference[0]->name}}{{$againsReference[0]->surnames}}" readonly/>                        
                 </div>                    
             </div>                         
             <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">       
                 <div class="form-group">
                     <label for="dentalOrgan">Organo Dental</label>
-                    <input class="form-control" type="text" name="dentalOrgan" placeholder="Organo Dental"/>                        
+                    <input class="form-control" type="text" name="dentalOrgan" value="{{$againsReference[0]->dentalOrgan}}" placeholder="Organo Dental"/>                        
                 </div>                    
             </div>                        
             <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">       
                 <div class="form-group">
                     <label for="">Diagnóstico Pulpar</label>
-                    <input class="form-control" type="text" name="pulparDiagnosis" placeholder="Organo Dental"/>                        
+                    <input class="form-control" type="text" name="pulparDiagnosis" value="{{$againsReference[0]->pulparDiagnosis}}" placeholder="Organo Dental"/>                        
                 </div>                    
             </div>                        
             <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">       
                     <div class="form-group">
                         <label for="periapicalDiagnosis">Diagnóstico Periapical</label>
-                        <input class="form-control" type="text" name="periapicalDiagnosis" placeholder="Diagnóstico Periapical"/>                        
+                        <input class="form-control" type="text" name="periapicalDiagnosis" value="{{$againsReference[0]->periapicalDiagnosis}}" placeholder="Diagnóstico Periapical"/>                        
                     </div>                    
                 </div>                        
             <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">       
                     <label for="forecast">Pronóstico</label>
-                    <select class="form-control" name="forecast">
+                    <select value="{{$againsReference[0]->forecast}}" class="form-control" name="forecast">
                       <option>Bueno</option>
                       <option>Medio</option>
                       <option>Malo</option>
@@ -115,13 +94,13 @@
             <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">       
                 <div class="form-group">
                     <label for="startTreatment" >Inicio del Tratamiento</label>
-                    <input class="form-control" name="startTreatment" type="date"/>                        
+                    <input class="form-control" name="startTreatment" value="{{$againsReference[0]->startTreatment}}" type="date"/>                        
                 </div>                    
             </div>                        
             <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">       
                 <div class="form-group">
                     <label for="endTreatment">Fin del Tratamiento</label>
-                    <input class="form-control" name="endTreatment" type="date"/>                        
+                    <input class="form-control" name="endTreatment" value="{{$againsReference[0]->endTreatment}}" type="date"/>                        
                 </div>                    
             </div>
             <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">       
@@ -140,7 +119,7 @@
                 </div>                   
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">       
-                <button class="btn btn-new-row" id="new" type="button" onclick="getModalValues()">Nuevo</button>
+                <button class="btn btn-new-row" type="button" onclick="getModalValues()">Nuevo</button>
                     <div class="table-responsive">
                     <table class="table table-bordered" id="tableMedicion">
                         <thead class="thead-dark">
@@ -149,9 +128,18 @@
                               <th>Medición</th>
                               <th>Referencia</th>
                               <th>Lima</th>
-                              <th class="text-center">Acción</th>
+                              <th class="text-center">Eliminar</th>
                             </tr>
                             </thead>
+                            @foreach($measurements as $item)
+                            <tr style="background-color:#bbb;">
+                                <td><input type="text" class="form-control" value="{{ $item->conduit }}" readonly></td>                             
+                                <td><input type="text" class="form-control" value="{{ $item->measuring }}" readonly></td>                             
+                                <td><input type="text" class="form-control" value="{{ $item->reference }}" readonly></td>                             
+                                <td><input type="text" class="form-control" value="{{ $item->lima }}" readonly></td>                             
+                                <td class="ckeckbox-table"><input class="ckeckbox-table" type="checkbox" name="measurementsID[]" value="{{ $item->id }}" aria-label="..."></td>                                                      
+                             </tr>        
+                            @endforeach
                             <tbody>                            
                             </tbody>
                     </table>
@@ -167,19 +155,19 @@
             <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 fist-div">   
                 <div class="form-group">
                     <label for="recommendation">Recomendación</label>
-                    <input class="form-control" type="text" name="recommendation" placeholder="Recomendación" required/>                        
+                    <input class="form-control" type="text" name="recommendation" value="{{$againsReference[0]->recommendation}}" placeholder="Recomendación" required/>                        
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">   
                 <div class="form-group">
                     <label for="provisionalMaterial">Material provisional</label>
-                    <input class="form-control" type="text" name="provisionalMaterial" placeholder="Material provisional" required/>                        
+                    <input class="form-control" type="text" name="provisionalMaterial" value="{{$againsReference[0]->provisionalMaterial}}" placeholder="Material provisional" required/>                        
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">   
                 <div class="form-group">
                     <label for="observations">Obsercaciones</label>
-                    <textarea class="form-control" type="text" name="observations" placeholder="Recomendación" required/></textarea>                        
+                    <textarea class="form-control" type="text" name="observations" required/>{{$againsReference[0]->observations}}</textarea>                        
                 </div>
             </div>
         </div> 
@@ -188,7 +176,26 @@
                 <h2 class="text-center">Archivos</h2>                     
             </div>
             </div>
-            <div class="row">   
+            <div class="row"> 
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 container-image-database">
+                    <h5 class="text-center">Imagenes gurdardas</h5>
+                    <div class="contianer-fluid">
+                        <div class="row justify-content-center">
+                            @foreach($imgAgainstReference as $item)
+                                <div class="col-md-2 co-sm-3 div-imagenes-cargadas card">
+                                    <img src="{{ asset('storage/'.$item->src)}}" class="img-fluid" onclick="preview(this.src, 'Vista Previa')" alt="Resposive image">
+                                    <div class="container-delete-image text-center">
+                                        <div class="form-check">
+                                            <label class="form-check-label container-delete-image">
+                                                <input type="checkbox" class="form-check-input" name="imgDeleteID[]" value="{{$item->id}},{{$item->src}}">Eliminar
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach  
+                        </div>
+                    </div>
+                </div>  
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="btn-group container-input-file">
                         <label id="labelInputFile" onclick="callInputFile()" class="btn"><i class="fa fa-file-image-o"></i></label><input id="files" class="files" type="file" name="file[]" multiple="multiple"accept="image/x-png,image/gif,image/jpeg,image/PNG"/>
@@ -324,6 +331,10 @@
 .div-imagenes-cargadas {
 	padding: 0.1em 0.1em 0.1em 0.1em;
 	margin: 2em 2em 2em 2em;
+    max-width: none !important;
+    max-height: none !important;
+    width: 100%;
+    height: 100%;
 }
 .div-imagenes-cargadas .loaded-images{
     cursor: pointer;
@@ -394,6 +405,31 @@
 	}
 }
 /* Animation modal */
+.container-image-database{
+    border: 2px dashed;
+}
+.container-delete-image{
+    background-color: rgb(0%, 59%, 53%);
+}
+.container-delete-image input{
+   border:solid 1px;
+}
+.div-imagenes-cargadas img{
+    cursor: pointer;
+}
+.ckeckbox-table{
+    margin-top:0.7em; 
+    margin-left:1.7em; 
+}
+.ckeckbox-table:focus{
+    color:green;
+    outline:0;
+}
+.container-delete-image input{
+    margin-top: 3.5%;
+}
+
+/**/
 </style>
 
 <script> 
@@ -413,7 +449,6 @@ function getModalValues() {
         btnRemove.setAttribute("class", "btn btnRemove");
         elimanetI.setAttribute("class", "fa fa-trash");
         elimanetI.setAttribute("name", "btnRemove");
-        elimanetI.setAttribute("id", "btnRemove");
         btnRemove.setAttribute("style", "background-color: red;");
         btnRemove.type = "button";
         btnRemove.value = "Remove";

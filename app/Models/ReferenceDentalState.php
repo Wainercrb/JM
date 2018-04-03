@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
-class post extends Model
+class ReferenceDentalState extends Model
 {
-    protected $table = "post";
+    protected $table = "referencedentalstate";
     public $timestamps = false;
 }
