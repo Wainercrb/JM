@@ -1,0 +1,265 @@
+#avatarImage {
+  padding-top: 10%;
+}
+
+.form-group {
+  margin-bottom: 5%;
+}
+
+#email-error, #name-error, #surnames-error, #code-error, #password-error, #role-error, #passwordAgain-error, #patient-error, #birthDate-error, #identificationCard-error, #phone-error, #referredAnalgesic-error, #referredAntibioticesic-error, #observations-error, #identificationCard-error, #patient-error, #name-error, #dentalOrgan-error, #pulparDiagnosis-error, #periapicalDiagnosis-error, #forecast-error, #startTreatment-error, #endTreatment-error, #recommendation-error, #provisionalMaterial-error, #observations-error {
+  border: none !important;
+  color: red;
+}
+
+.error {
+  border: 1px solid red;
+}
+
+.valid {
+  border: 1px solid green;
+}
+
+#lblAvatar {
+  height: 40px;
+  background-color: #4a494e;
+  color: #fff;
+  border: 0px;
+}
+
+#lblAvatar {
+  background-color: #4a494e;
+  color: #fff;
+  border: 0px;
+}
+
+#lblAvatar, #clearFiles {
+  height: 40px !important;
+}
+
+#lblAvatar:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.actions-avatar {
+  margin: 2% 0% 0% 0%;
+}
+
+.idTable {
+  display: none;
+}
+
+.tdActions {
+  width: 10px !important;
+}
+
+.btn-new {
+  margin: 0% 0% 2% 2%;
+}
+
+.paginate_button:hover {
+  background-color: red !important;
+}
+
+.row-teeths {
+  border: solid 1px #CED4DA;
+}
+
+.contianer-teeths {
+  background-color: #009688;
+  color: #fff;
+}
+
+.labelDentalStatus, .labelTeeths {
+  margin-top: 0.5em;
+}
+
+.inputNoBorder {
+  border: none;
+  background: none;
+}
+
+/*Against Referense styles*/
+
+/*style for container dividers*/
+
+.row-files {
+  margin: 0em -1.7em 0em -1.7em;
+  padding: 1em 0em 1em 0em;
+}
+
+/*style for container dividers*/
+
+/*style for input file*/
+
+.sub-title-section {
+  padding: 2% 0% 2% 0%;
+  margin-bottom: 1%;
+  background-color: rgb(91%, 93%, 94%);
+}
+
+.files {
+  display: none;
+}
+
+#labelInputFile {
+  height: 40px;
+  margin-top: 10% !important;
+  background-color: #4a494e;
+  color: #fff;
+  border: 0px;
+}
+
+#labelInputFile {
+  background-color: #4a494e;
+  color: #fff;
+  border: 0px;
+}
+
+#labelInputFile, #clearFiles {
+  height: 40px !important;
+}
+
+#labelInputFile:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.container-input-file {
+  margin: 2% 0% 0% 0%;
+  padding: 1% 1% 1% 1%;
+  border: 2px dashed;
+  border-bottom: none;
+}
+
+/*/style for input file*/
+
+/*style modal images*/
+
+.container-output {
+  border: 2px dashed;
+  height: 5%;
+  padding: 5% 0% 5% 0%;
+  margin-bottom: 2em;
+}
+
+.container-modal-image {
+  max-height: calc(110vh - 310px);
+  overflow-y: auto;
+}
+
+#modal-preview, #previewVideo {
+  background-color: rgb(0, 0, 0);
+  width: 100%;
+  height: auto%;
+  max-width: 100%;
+}
+
+.body-modal {
+  margin: 0%;
+  padding: 0%;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.footer-modal {
+  padding: 2% 0% 2% 0%;
+}
+
+.close:hover, .close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*/style modal images*/
+
+/*style loaded images*/
+
+.div-imagenes-cargadas {
+  padding: 0.1em 0.1em 0.1em 0.1em;
+  margin: 2em 2em 2em 2em;
+}
+
+.div-imagenes-cargadas .loaded-images {
+  cursor: pointer;
+}
+
+/*/style loaded images*/
+
+/*style buttoms*/
+
+.btn-group-files {
+  display: inline-block;
+}
+
+/*.btn:hover {
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.btn:active {
+    outline: none;
+    border: none;
+}*/
+
+/*.btn:focus {
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+}
+*/
+
+.btnRemove {
+  display: block;
+  margin: auto;
+}
+
+.btn-new-row {
+  margin: 2% 0% 2% 0% !important;
+}
+
+/*.btn {
+    background-color: #4a494e;
+    color: #fff;
+}*/
+
+/*/style buttoms*/
+
+/* Animation modal */
+
+.modal-footer, #name-modal-image, .modal-content {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {
+    -webkit-transform: scale(0)
+  }
+  to {
+    -webkit-transform: scale(1)
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0)
+  }
+  to {
+    transform: scale(1)
+  }
+}
+
+/* Animation modal */
+
+/*End Against Referense styles*/

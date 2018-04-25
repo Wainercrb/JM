@@ -1,10 +1,6 @@
-@extends('users.layouts.app')
-@section('content')
-@section('title')
-ADMINISTRACIÓN
-@endsection
+@extends('users.layouts.app') @section('content') @section('title') ADMINISTRACIÓN @endsection
 <div class="fixed-nav sticky-footer bg-dark" id="page-top">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="index.html">JM-ADMINISTRADOR</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -139,20 +135,22 @@ ADMINISTRACIÓN
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <div class = "img-rounded profile-img"> </div>
+            <div class="img-rounded profile-img"></div>
             <i class=""></i>Nombre apellidos</a>
         </li>
 
         <style>
 
-            .profile-img{
-              margin-right: 5px;
-              float: left;
-              background: url(http://www.thepixelfarm.co.uk/wp-content/uploads/2016/05/admin_v01D_support.png) 50% 50% no-repeat; /* 50% 50% centers image in div */
-              background-size: auto 100%; /* Interchange this value depending on prefering width vs. height */
-              width: 40px;
-              height: 40px;
-              margin-top: -0.5em;
+          .profile-img {
+            margin-right: 5px;
+            float: left;
+            background: url("http://www.thepixelfarm.co.uk/wp-content/uploads/2016/05/admin_v01D_support.png") 50% 50% no-repeat;
+            /* 50% 50% centers image in div */
+            background-size: auto 100%;
+            /* Interchange this value depending on prefering width vs. height */
+            width: 40px;
+            height: 40px;
+            margin-top: -0.5em;
           }
         </style>
         <li class="nav-item">
@@ -162,5 +160,5 @@ ADMINISTRACIÓN
       </ul>
     </div>
   </nav>
- 
+
   @endsection

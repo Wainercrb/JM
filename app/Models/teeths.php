@@ -7,4 +7,9 @@ class teeths extends Model
 {
     protected $table = "teeths";
     public $timestamps = false;
+    public function References()
+    {
+      return $this->belongsToMany('App\Models\Reference', 'ReferenceTeeths',
+                                  'id_teeth', 'id_reference');
+    }
 }

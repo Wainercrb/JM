@@ -28,13 +28,17 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            if (auth()->user()->role === "admin") {
-                $Reference = Reference::join('users', 'users.id', '=', 'reference.id_user')->select('users.*', 'reference.*')->where('reference.state', 'like', 'Enviado')->get();
-                return View('private.main')->with('Reference', $Reference);
-            } else if (auth()->user()->role === "invited") {
-                $againsReference = againsReference::join('reference', 'reference.id', '=', 'againstreference.id_reference')->where('reference.state', 'like', 'Recibido')->where('reference.id_user', '=', auth()->user()->id)->select('reference.*', 'againstreference.*')->get();
-                return View('private.main')->with('againsReference', $againsReference);
+
+
+            if (auth()->user()->hasRole('Admin')) {
+                $reference = Reference::where('reference.state', 'Send')->get();
+                return View('private.main')->with('reference', $reference);
+            } else if (auth()->user()->hasRole('Guest')) {
+              $reference = Reference::where('reference.state', 'Forwarded')
+                                      ->where('reference.id_user', auth()->user()->id)->get();
+              return View('private.main')->with('reference', $reference);
             }
+              return View('erros.401');
         } catch (\Illuminate\Database\QueryException $ex) {
             dd($ex->getMessage());
         }

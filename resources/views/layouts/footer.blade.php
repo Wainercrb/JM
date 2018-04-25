@@ -1,1 +1,1 @@
-<h1>este es el titul</h1>
+<p class="footer-copyright">© 2018 Copyright</p>

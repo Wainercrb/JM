@@ -9,128 +9,283 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
-Route::get('/', function () {
-    return view('public.index');
+Route::group(['middleware' => 'web'], function () {
+    // geraral routes
+    Route::get('getPosts', 'PostController@getPosts')->name('post.getPosts');
+    Route::post('login', 'Auth\LoginController@login')->name('login');
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::post('register', 'UserController@store')->name('register');
+    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+    Route::get('noticias', function () {
+        return view('public.posts');
+    })->name('news');
+    Route::get('/', function () {
+        return view('public.index');
+    })->name('home');
+    Route::get('perfil', function () {
+        return view('public.profile');
+    })->name('home');
+    Route::get('401', function () {
+        return view('messages.401');
+    })->name('401');
+    Route::get('mi-app', [
+        'uses'       => 'HomeController@index',
+        'as'         => 'home.index',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::get('/login', function () {
+        if (auth()->user() != null && (auth()->user()->hasRole('Guest') || auth()->user()->hasRole('Admin'))) {
+
+            return redirect('/mi-app');
+        } else {
+            return view('public.login');
+        }
+    })->name('login');
+    Route::post('login', 'Auth\LoginController@login')->name('login');
+    Route::post('logout', [
+        'uses'       => 'Auth\LoginController@logout',
+        'as'         => 'logout',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    // end general routes
+
+    //user routes
+    Route::get('usuarios', [
+        'uses'       => 'UserController@index',
+        'as'         => 'user.get',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('usuario/nuevo', [
+        'uses'       => 'UserController@create',
+        'as'         => 'user.create',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('usuario/editar/{id}', [
+        'uses'       => 'UserController@edit',
+        'as'         => 'user.edit',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::get('usuario/confirmar/{id}', [
+        'uses'       => 'UserController@confirDelete',
+        'as'         => 'user.get',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('usuario/ver/{id}', [
+        'uses'       => 'UserController@show',
+        'as'         => 'user.show',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::post('usuario/actualizar/{id}', [
+        'uses'       => 'UserController@update',
+        'as'         => 'user.update',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::post('usuario/guardar', [
+        'uses'       => 'UserController@store',
+        'as'         => 'user.store',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::post('usuario/eliminar/{id}', [
+        'uses'       => 'UserController@destroy',
+        'as'         => 'user.destroy',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    //end user routes
+
+    //routs againstReference
+    Route::get('contrarreferencias', [
+        'uses'       => 'AgainstReferenceController@index',
+        'as'         => 'aginstReference.get',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('contrarreferencia/nueva/{id}', [
+        'uses'       => 'AgainstReferenceController@create',
+        'as'         => 'againstReference.create',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('contrarreferencia/confirmar/{id}', [
+        'uses'       => 'AgainstReferenceController@confirDelete',
+        'as'         => 'againstReference.confir',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('contrarreferencia/editar/{id}', [
+        'uses'       => 'AgainstReferenceController@edit',
+        'as'         => 'againstReference.edit',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('contrarreferencia/ver/{id}', [
+        'uses'       => 'AgainstReferenceController@show',
+        'as'         => 'againsReference.show',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::get('contrarreferencia/finalizar/{id}', [
+        'uses'       => 'AgainstReferenceController@finalize',
+        'as'         => 'AgainstReference.finalize',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::post('contrarreferencia/guardar/{id}', [
+        'uses'       => 'AgainstReferenceController@store',
+        'as'         => 'againstReference.store',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::post('contrarreferencia/actualizar/{id}', [
+        'uses'       => 'AgainstReferenceController@update',
+        'as'         => 'againstReference.update',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::post('contrarreferencia/eliminar/{id}', [
+        'uses'       => 'AgainstReferenceController@destroy',
+        'as'         => 'AgainstReference.destroy',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::post('contrarreferencia/terminado/{id}', [
+        'uses'       => 'AgainstReferenceController@finished',
+        'as'         => 'AgainstReference.finished',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    //end against-reference routes
+
+    //reference routes
+    Route::get('referencias', [
+        'uses'       => 'ReferenceController@index',
+        'as'         => 'reference.get',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::get('referencia/nueva', [
+        'uses'       => 'ReferenceController@create',
+        'as'         => 'reference.create',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::get('referencia/editar/{id}', [
+        'uses'       => 'ReferenceController@edit',
+        'as'         => 'reference.edit',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::get('referencia/confirmar/{id}', [
+        'uses'       => 'ReferenceController@confirDelete',
+        'as'         => 'reference.confir',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::get('referencia/ver/{id}', [
+        'uses'       => 'ReferenceController@show',
+        'as'         => 'reference.show',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::post('referencia/guardar', [
+        'uses'       => 'ReferenceController@store',
+        'as'         => 'reference.store',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::post('referencia/actualizar/{id}', [
+        'uses'       => 'referenceController@update',
+        'as'         => 'reference.update',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    Route::post('referencia/eliminar/{id}', [
+        'uses'       => 'ReferenceController@destroy',
+        'as'         => 'reference.destroy',
+        'middleware' => 'roles',
+        'roles'      => ['Admin', 'Guest'],
+    ]);
+    //end reference routes
+
+    //post routes
+    Route::get('posts', [
+        'uses'       => 'PostController@index',
+        'as'         => 'post.get',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('post/nuevo', [
+        'uses'       => 'PostController@create',
+        'as'         => 'post.create',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('post/editar/{id}', [
+        'uses'       => 'PostController@edit',
+        'as'         => 'post.edit',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('post/confirmar/{id}', [
+        'uses'       => 'PostController@confirDelete',
+        'as'         => 'post.get',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::get('post/ver/{id}', [
+        'uses'       => 'PostController@show',
+        'as'         => 'post.show',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::post('post/guardar', [
+        'uses'       => 'PostController@store',
+        'as'         => 'post.store',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::post('post/actualizar/{id}', [
+        'uses'       => 'PostController@update',
+        'as'         => 'post.update',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+    Route::post('post/eliminar/{id}', [
+        'uses'       => 'PostController@destroy',
+        'as'         => 'post.destroy',
+        'middleware' => 'roles',
+        'roles'      => ['Admin'],
+    ]);
+
+    //end post routes
 });
 
-// Route::get('/login', function () {
-//      return view('private.againstReference.index');
-//  });
-// Route::get('/login', function () {
-//      return view('auth.login');
-//  });
-// Route::get('/login2', function () {
-//      return view('private.againstReference.show');
-//  });
-Route::get('/new-user', function () {
-     return view('public.post');
- });
-Route::get('/new-user2', function () {
-     return view('private.againstReference.create');
- });
-// Route::get('/main', function () {
-//     return view('users.main');
-// });
-
-
-
-//stard login routes
-Route::get('login', function () {
-    return view('public.login');
+Route::get('/userGetData', function () {
+    return datatables()->eloquent(App\User::query())->make(true);
 });
-Route::get('usuario/nuevo', function () {
-    return view('private.user.create');
-});
-Route::get('referencia', function () {
-    return view('private.user.create');
+Route::get('/referenceGetData', function () {
+    if (auth()->user()->hasRole('Admin')) {
+        return datatables()->eloquent(App\Models\reference::query())->make(true);
+    } else if (auth()->user()->hasRole('Guest')) {
+        return datatables()->eloquent(App\Models\reference::query()->where('id_user', auth()->user()->id))->make(true);
+    }
 });
 
-
-//end login routes
-
-
-
-// Route::get('/new-post', function () {
-//     return view('users.new-post');
-// });
-// Route::get('/search-users', function () {
-//     return view('users.search-users');
-// });
-// Route::get('/posts', function () {
-//     return view('home.posts');
-// });
-// Route::get('/', function () {
-//     return view('home.index');
-// });
-// Route::get('/profile', function () {
-//     return view('home.profile');
-// });
-// Route::get('/contra-referencia', function () {
-//     return view('users.againstReference.againstReference');
-// });
-
-// // againstReference routes
-// Route::post('/againstReference', function (Request $request) {
-   
-// });
-
-
-// General Routes
-Route::get('usuarios', 'UserController@index');
-Route::get('usuarios/nuevo', 'UserController@create');
-
-
-
-// End General Routes
-
-
-
-
-// post-routes
-Route::get('/post/nuevo', 'post@create');
-
-
-// agasint-reference-routes
-Route::post('/contra-referencia/guardar', 'againstReference@store');
-Route::post('/contra-referencia/editar', 'againstReference@update');
-Route::post('/contra-referencia/confirmar-eliminar', 'againstReference@destroy');
-Route::get('/contra-referencia/nueva/{id}', 'againstReference@create')->name('/contra-referencia/nueva');
-Route::get('/contra-referencia/ver/{id}', 'againstReference@show')->name('/contra-referencia/ver');
-Route::get('/contra-referencia/eliminar/{id}', 'againstReference@delete');
-Route::get('/contra-referencia/editar/{id}', 'againstReference@edit');
-Route::get('contra-referencia', 'againstReference@index');
-// agasint-reference-routes
-Route::post('/referencia/guardar', 'ReferenceController@store')->name('/referencia/guardar');
-Route::post('/referencia/editar', 'ReferenceController@update');
-Route::post('/referencia/confirmar-eliminar', 'ReferenceController@destroy');
-Route::get('/referencia/nueva', 'ReferenceController@create');
-Route::get('/referencia/ver/{id}', 'ReferenceController@show');
-Route::get('/referencia/eliminar/{id}', 'ReferenceController@delete');
-Route::get('/referencia/editar/{id}', 'ReferenceController@edit');
-Route::get('/referencia', 'ReferenceController@index');
-
-
-
-// post routes
-
-Route::get('posts', 'postController@posts');
-Route::get('imagenes', 'postController@images');
-Route::get('/post/nuevo', 'postController@create');
-Route::post('/post/guardar', 'postController@store');
-
-// end post routes
-
-Route::post('login', 'Auth\LoginController@login')->name('login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-Route::post('register', 'Auth\RegisterController@register')->name('register');
-Route::post('usuario/guardar', 'UserController@store')->name('usuario/guardar');
-
-
-
-// home controller
-Route::get('mi-app', 'HomeController@index')->name('mi-app');
-// end home controller
-
-
+Route::get('getMediaForId', 'PostController@getMediaForId')->name('post.getMediaForId');
+Route::get('/postGetData', function () {
+    return datatables()->eloquent(App\Models\post::query())->make(true);
+});

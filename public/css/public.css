@@ -1,0 +1,431 @@
+ body {
+     background-color: #FAFAFA !important;
+ }
+ footer .footer-copyright {
+     padding-bottom: 1.5%;
+     padding-top: 1.5%;
+     text-align: center;
+     margin-bottom: 0px !important;
+     color: #fff;
+     background-color: #4A494E;
+ }
+ footer .footer-social {
+     text-align: center;
+     padding-top: 25px;
+     padding-bottom: 25px;
+     background-color: #009688;
+ }
+ .header-facebook {
+     color: #4267B2;
+ }
+ .header-you-tube {
+     color: red;
+ }
+ .header-facebook:hover, .header-you-tube:hover {
+     color: #009688;
+ }
+ /*login styles*/
+
+ .container-public {
+     margin-top: 7em;
+ }
+ .container-reset {
+     margin-top: 10em;
+ }
+ .login-header, .header-reset-password {
+     background-color: #009688 !important;
+     border-bottom: none !important;
+ }
+ .login-body {
+     border-top: none !important;
+     background-color: #FFFFFF !important;
+     padding: 1em 1em 0em 1em;
+ }
+ .header-reset-password {
+     padding: 0em !important;
+     margin: 0em !important;
+ }
+ .login-body, .login-header {
+     padding: 20px;
+     border-width: 1px;
+     border-style: solid;
+     border-color: #E6E6E6;
+ }
+ .container-body-reset {
+     padding-top: 1em;
+     border-width: 1px;
+     border-style: solid;
+     border-color: #E6E6E6;
+     background-color: #FFFFFF !important;
+ }
+ .container-header-reset {
+     border-width: 1px;
+     border-style: solid;
+     border-color: #E6E6E6;
+     padding: 1.5em 0em 1em 0em;
+     background-color: #009688 !important;
+     border-bottom: none !important;
+ }
+ /*end login styles*/
+
+ .container-navbar {
+     border-bottom-width: 1px;
+     border-bottom-style: solid;
+     border-bottom-color: #E6E6E6;
+     background-color: red;
+     border-top: none !important;
+ }
+ #headerTop {
+     border-width: 1px;
+     border-style: solid;
+     border-color: #E6E6E6;
+     border: none;
+     background-color: #FFFFFF;
+ }
+ #collapsingNavbar {
+     padding-top: 0em;
+ }
+ .nav-item {
+     background-color: #4A494E;
+     margin: 1px;
+     transition: 0.5s ease;
+ }
+ .nav-item:hover {
+     -webkit-transform: scale(1.1);
+     -ms-transform: scale(1.1);
+     transform: scale(1.1);
+     transition: 0.5s ease;
+ }
+ .nav-item a {
+     color: #FFFFFF !important;
+ }
+ #headerInfo {
+     color: #4A494E;
+ }
+ .test {
+     position: absolute;
+     right: 4px;
+     top: 2;
+     background-color: black;
+     color: #ffff;
+     padding: 0em 0.5em 0.1em 0.5em;
+     border-radius: 25px;
+     cursor: pointer;
+ }
+ .test:hover {
+     -webkit-box-shadow: 3px 4px 5px 0px rgba(0, 0, 0, 0.75);
+     -moz-box-shadow: 3px 4px 5px 0px rgba(0, 0, 0, 0.75);
+     box-shadow: 3px 4px 5px 0px rgba(0, 0, 0, 0.75);
+ }
+ .hide {
+     display: none;
+ }
+ .post-information-lg, .post-information-sm {
+     text-align: justify;
+     border-width: 1px;
+     border-style: solid;
+     border-color: #E6E6E6;
+     background-color: #FFFFFF !important;
+ }
+ .full-post-container {
+     position: none !important;
+     margin-top: 5.5em !important;
+ }
+ .btn-more {
+     float: right !important;
+     position: relative !important;
+     margin-bottom: -15%;
+     border-radius: 50%;
+     background-color: black;
+     color: white;
+     font-size: 80%;
+ }
+ #details-footer {
+     padding-top: 1em;
+     border-width: 1px;
+     border-style: solid;
+     border-color: #E6E6E6;
+     border-bottom: none !important;
+     background-color: #FFFFFF !important;
+ }
+ #details-footer hr {
+     border-color: #E6E6E6;
+ }
+ .fjollaOne {
+     font-family: 'Fjalla One', sans-serif;
+ }
+ .pacifico {
+     font-family: 'Pacifico', cursive;
+ }
+ .img-services {
+     padding: 3em;
+ }
+ #postFooter {
+     border-width: 1px;
+     border-style: solid;
+     border-color: #E6E6E6;
+     background-color: #FFFFFF !important;
+     border-top: none !important;
+     margin-bottom: 5em;
+ }
+ #details-footer p .controlsPost {
+     color: blue !important;
+     cursor: pointer !important;
+ }
+ #buttoms-share {
+     text-align: right;
+     padding: 0em 0em 1em 0em !important;
+ }
+ #buttoms-share a {
+     margin: 1em;
+ }
+ .postBody {
+     margin: 0px 0px 0px 0px;
+     padding: 0px 0px 0px 0px !important;
+     border-width: 1px;
+     border-style: solid;
+     border-color: #EFEFEF;
+     background-color: #FBFBFB !important;
+     border-bottom: none;
+     cursor: pointer;
+ }
+ }
+ .controlsPost {
+     cursor: pointer;
+     color: blue;
+ }
+ #headerTop {
+     background-color: #009688 !important;
+ }
+ #carouselPrev>.carousel-control-prev-icon {
+     color: red !important;
+ }
+ @media only screen and (max-width: 40em) {
+     .post-information-lg {
+         display: none !important;
+     }
+     .post-information-sm {
+         display: hide !important;
+         margin-top: 1em;
+     }
+     .container-posts {
+         padding: 0em 0em 0em 0em !important;
+     }
+     #headerInfo {
+         border-bottom: none !important;
+         background-color: #FFFFFF !important;
+         padding: 0em 0em 0em 0em;
+         text-align: center;
+     }
+     #headerTop {
+         margin: 1em 0em 2em 0em;
+     }
+ }
+ /* full monitor */
+
+ @media only screen and (min-width: 40.063em) {
+     .post-information-lg {
+         display: none !important;
+     }
+     .post-information-sm {
+         display: hide !important;
+         margin-top: 4em;
+     }
+     .container-posts {
+         padding: 0em 0em 0em 0em !important;
+     }
+     #headerInfo {
+         border-bottom: none !important;
+         background: -webkit-linear-gradient(45deg, #54d400 48%, #1b1e21 48%) !important;
+         background: -webkit-linear-gradient(left, ##009688 48%, #1b1e21 48%) !important;
+         background: linear-gradient(45deg, #009688 60%, #FFFFFF 45%) !important;
+         padding: 0em 0em 0em 0em !important;
+         text-align: right !important;
+     }
+     #headerInfo span {
+         padding-right: 5em !important;
+     }
+     #headerTop {
+         margin: 1em 0em 2em 0em !important;
+     }
+ }
+ /* min-width 641px, medium screens */
+
+ @media only screen and (min-width: 40.063em) and (max-width: 64em) {
+     .post-information-lg {
+         display: block !important;
+         position: fixed !important;
+         padding: 1em;
+         width: 17em;
+     }
+     .post-information-sm {
+         display: none !important;
+     }
+     .container-posts {
+         padding: 0em 0em 0em 5em !important;
+     }
+     #headerInfo {
+         border-bottom: none !important;
+         background: -webkit-linear-gradient(45deg, #54d400 48%, #1b1e21 48%) !important;
+         background: -webkit-linear-gradient(left, ##009688 48%, #1b1e21 48%) !important;
+         background: linear-gradient(45deg, #009688 45%, #FFFFFF 45%) !important;
+         padding: 0em 0em 0em 0em !important;
+         text-align: right !important;
+     }
+     #headerInfo span {
+         padding-right: 2em !important;
+     }
+     #headerTop {
+         margin: 0em 0em 2em 0em !important;
+     }
+ }
+ @media only screen and (min-width: 64.063em) {
+     .post-information-lg {
+         display: block !important;
+         position: fixed !important;
+         padding: 1em !important;
+         width: 24em !important;
+     }
+     .post-information-sm {
+         display: none !important;
+     }
+     .container-posts {
+         padding: 0em 0em 0em 10em !important;
+     }
+     #headerInfo {
+         border-bottom: none !important;
+         background: -webkit-linear-gradient(45deg, #54d400 48%, #1b1e21 48%) !important;
+         background: -webkit-linear-gradient(left, ##009688 48%, #1b1e21 48%) !important;
+         background: linear-gradient(45deg, #009688 55%, #FFFFFF 45%) !important;
+         padding: 0em 0em 0em 0em !important;
+         text-align: right !important;
+     }
+     #headerInfo span {
+         padding-right: 5em !important;
+     }
+     #headerTop {
+         margin: 0em 0em 2em 0em !important;
+     }
+ }
+ /* min-width 1025px, large screens */
+
+ @media only screen and (min-width: 64.063em) and (max-width: 90em) {
+     .post-information-lg {
+         display: block !important;
+         position: fixed !important;
+         padding: 1em;
+         width: 24em !important;
+     }
+     .post-information-sm {
+         display: none !important;
+     }
+     .container-posts {
+         padding: 0em 0em 0em 10em !important;
+     }
+     #headerInfo {
+         border-bottom: none !important;
+         background: -webkit-linear-gradient(45deg, #54d400 48%, #1b1e21 48%) !important;
+         background: -webkit-linear-gradient(left, ##009688 48%, #1b1e21 48%) !important;
+         background: linear-gradient(45deg, #009688 55%, #FFFFFF 45%) !important;
+         padding: 0em 0em 0em 0em !important;
+         text-align: right !important;
+     }
+     #headerInfo span {
+         padding-right: 5em !important;
+     }
+     #headerTop {
+         margin: 0em 0em 2em 0em !important;
+     }
+ }
+ /* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
+ @media only screen and (min-width: 90.063em) {
+     .post-information-lg {
+         display: block !important;
+         position: fixed !important;
+         padding: 1em !important;
+         width: 24em !important;
+     }
+     .post-information-sm {
+         display: none !important;
+     }
+     .container-posts {
+         padding: 0em 0em 0em 10em !important;
+     }
+     #headerInfo {
+         border-bottom: none !important;
+         background: -webkit-linear-gradient(45deg, #54d400 48%, #1b1e21 48%) !important;
+         background: -webkit-linear-gradient(left, ##009688 48%, #1b1e21 48%) !important;
+         background: linear-gradient(45deg, #009688 55%, #FFFFFF 45%) !important;
+         padding: 0em 0em 0em 0em !important;
+         text-align: right !important;
+     }
+     #headerInfo span {
+         padding-right: 5em !important;
+     }
+     #headerTop {
+         margin: 0em 0em 2em 0em !important;
+     }
+ }
+ /* min-width 1441px, xlarge screens */
+
+ @media only screen and (min-width: 90.063em) and (max-width: 120em) {
+     .post-information-lg {
+         display: block !important;
+         position: fixed !important;
+         padding: 1em !important;
+         width: 24em !important;
+     }
+     .post-information-sm {
+         display: none !important;
+     }
+     .container-posts {
+         padding: 0em 0em 0em 10em !important;
+     }
+     #headerInfo {
+         border-bottom: none !important;
+         background: -webkit-linear-gradient(45deg, #54d400 48%, #1b1e21 48%) !important;
+         background: -webkit-linear-gradient(left, ##009688 48%, #1b1e21 48%) !important;
+         background: linear-gradient(45deg, #009688 55%, #FFFFFF 45%) !important;
+         padding: 0em 0em 0em 0em !important;
+         text-align: right !important;
+     }
+     #headerInfo span {
+         padding-right: 5em !important;
+     }
+     #headerTop {
+         margin: 0em 0em 2em 0em !important;
+     }
+ }
+ /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+ @media only screen and (min-width: 120.063em) {
+     .post-information-lg {
+         display: block;
+         !important;
+         position: fixed !important;
+         padding: 1em !important;
+         width: 24em !important;
+     }
+     .post-information-sm {
+         display: none !important;
+     }
+     .container-posts {
+         padding: 0em 0em 0em 10em !important;
+     }
+     #headerInfo {
+         border-bottom: none !important;
+         background: -webkit-linear-gradient(45deg, #54d400 48%, #1b1e21 48%) !important;
+         background: -webkit-linear-gradient(left, ##009688 48%, #1b1e21 48%) !important;
+         background: linear-gradient(45deg, #009688 55%, #FFFFFF 45%) !important;
+         padding: 0em 0em 0em 0em !important;
+         text-align: right !important;
+     }
+     #headerInfo span {
+         padding-right: 5em !important;
+     }
+     #headerTop {
+         margin: 0em 0em 2em 0em !important;
+     }
+ }
+ /* min-width 1921px, xlarge screens */
